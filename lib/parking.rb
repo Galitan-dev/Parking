@@ -16,6 +16,7 @@ module Parking
       @rows = rows
       @spots = []
       @codes = []
+      @timestamps = []
 
       (0...@rows).each do
         (0...@columns).each do |col|
@@ -28,18 +29,27 @@ module Parking
       row * @columns + col
     end
 
+    def cost_for(col, row)
+      elapsed = Time.now - @timestamps[index_of(col, row)]
+      # 2€/h
+      (elapsed / 30 * 10).floor
+    end
+
     def occup(col, row, code, european_card = nil)
       index = index_of(col, row)
       throw Parking::Error.new("Spot occupied") if @spots[index].occupied?
       Parking::EuropeanCards.check(european_card) if @spots[index] == Parking::Spot::RESERVED
       @spots[index] = @spots[index].occup
       @codes[index] = code
+      @timestamps[index] = Time.now
     end
 
-    def free(col, row, code)
+    def free(col, row, code, money)
       index = index_of(col, row)
       throw Parking::Error.new("Spot free") if @spots[index].free?
       throw Parking::Error.new("Wrong code") if code != @codes[index]
+      cost = cost_for(col, row)
+      throw Parking::Error.new("Insufficient money. You have to pay #{cost}€") if money < cost
       @spots[index] = @spots[index].free
     end
 
