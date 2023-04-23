@@ -2,6 +2,7 @@
 
 require_relative "parking/version"
 require_relative "parking/spot"
+require_relative "parking/cards"
 
 module Parking
   class Error < StandardError; end
@@ -27,9 +28,10 @@ module Parking
       row * @columns + col
     end
 
-    def occup(col, row, code)
+    def occup(col, row, code, european_card = nil)
       index = index_of(col, row)
       throw Parking::Error.new("Spot occupied") if @spots[index].occupied?
+      Parking::EuropeanCards.check(european_card) if @spots[index] == Parking::Spot::RESERVED
       @spots[index] = @spots[index].occup
       @codes[index] = code
     end
