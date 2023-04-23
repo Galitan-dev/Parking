@@ -9,6 +9,7 @@ module Parking
   end
 end
 
+# Add some methos to integer for spots status management and drawing
 class Integer
   def draw
     case self

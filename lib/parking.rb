@@ -6,6 +6,7 @@ require_relative "parking/spot"
 module Parking
   class Error < StandardError; end
 
+  # Main class
   class ParkingMetter
     attr_accessor :spots, :columns, :rows
 
