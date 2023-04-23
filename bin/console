@@ -7,9 +7,19 @@ require "parking"
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
 
+p = Parking::ParkingMetter.new
+
+puts "Bienvenue chez votre parking préféré !"
+puts p
+puts "La méthode p.occup(colum, row, code[, european_card]) vous permet de garer votre voiture"
+puts "La méthode p.free(colum, row, money) vous permet de reprendre votre voiture"
+puts "Le prix est de 2€/h et le temps est accéléré par 10 (1€ toutes les 5s)"
+
 # (If you use this, don't forget to add pry to your Gemfile!)
 # require "pry"
 # Pry.start
 
 require "irb"
 IRB.start(__FILE__)
+
+puts "Merci de votre visite et à bientôt !"

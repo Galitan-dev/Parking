@@ -42,6 +42,7 @@ module Parking
       @spots[index] = @spots[index].occup
       @codes[index] = code
       @timestamps[index] = Time.now
+      puts self
     end
 
     def free(col, row, code, money)
@@ -51,6 +52,7 @@ module Parking
       cost = cost_for(col, row)
       throw Parking::Error.new("Insufficient money. You have to pay #{cost}€") if money < cost
       @spots[index] = @spots[index].free
+      puts self
     end
 
     def draw_row(row)
