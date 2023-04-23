@@ -10,4 +10,4 @@ Layout/LineLength:
   Max: 120
 
 AllCops:
-  TargetRubyVersion: 2.3.0
+  TargetRubyVersion: 3.0
