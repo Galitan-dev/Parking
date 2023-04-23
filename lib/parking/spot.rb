@@ -29,4 +29,12 @@ class Integer
   def free
     self - Parking::Spot::OCCUPIED
   end
+
+  def free?
+    self == Parking::Spot::FREE || self == Parking::Spot::RESERVED
+  end
+
+  def occupied?
+    self == Parking::Spot::OCCUPIED || self == Parking::Spot::RESERVED_OCCUPIED
+  end
 end

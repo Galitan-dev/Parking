@@ -14,6 +14,7 @@ module Parking
       @columns = columns
       @rows = rows
       @spots = []
+      @codes = []
 
       (0...@rows).each do
         (0...@columns).each do |col|
@@ -26,13 +27,17 @@ module Parking
       row * @columns + col
     end
 
-    def occup(col, row)
+    def occup(col, row, code)
       index = index_of(col, row)
+      throw Parking::Error.new("Spot occupied") if @spots[index].occupied?
       @spots[index] = @spots[index].occup
+      @codes[index] = code
     end
 
-    def free(col, row)
+    def free(col, row, code)
       index = index_of(col, row)
+      throw Parking::Error.new("Spot free") if @spots[index].free?
+      throw Parking::Error.new("Wrong code") if code != @codes[index]
       @spots[index] = @spots[index].free
     end
 
